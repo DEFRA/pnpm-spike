@@ -5,6 +5,7 @@
   "sideEffects": false,
   "main": "src/index.js",
   "type": "module",
+  "packageManager": "pnpm@10.33.0+sha512.10568bb4a6afb58c9eb3630da90cc9516417abebd3fabbe6739f0ae795728da1491e9db5a544c76ad8eb7570f5c4bb3d6c637b2cb41bfdcdb47fa823c8649319",
   "engines": {
     "node": ">=24"
   },
@@ -12,23 +13,23 @@
     "build:frontend": "NODE_ENV=production webpack",
     "dev": "AWS_EMF_ENVIRONMENT=Local run-p frontend:watch server:watch",
     "dev:debug": "AWS_EMF_ENVIRONMENT=Local run-p frontend:watch server:debug",
-    "docker:dev": "npm run dev",
+    "docker:dev": "pnpm run dev",
     "format": "prettier --write \"src/**/*.js\" \"**/*.{js,cjs,md,json,config.js,test.js}\"",
     "format:check": "prettier --check \"src/**/*.js\" \"**/*.{js,cjs,md,json,config.js,test.js}\"",
     "frontend:watch": "NODE_ENV=development webpack --watch",
-    "git:pre-commit-hook": "npm run security-audit && npm run format:check && npm run lint && npm test",
-    "postinstall": "npm run setup:husky",
+    "git:pre-commit-hook": "pnpm run security-audit && pnpm run format:check && pnpm run lint && pnpm test",
+    "postinstall": "pnpm run setup:husky",
     "lint": "run-s lint:js lint:scss",
     "lint:js": "eslint .",
     "lint:js:fix": "eslint . --fix",
     "lint:scss": "stylelint \"src/**/*.scss\" --cache --cache-location .cache/stylelint --cache-strategy content --color --ignore-path .gitignore",
-    "pretest": "npm run build:frontend",
+    "pretest": "pnpm run build:frontend",
     "test": "TZ=UTC vitest run --coverage",
     "test:watch": "TZ=UTC vitest",
-    "security-audit": "npm audit --audit-level=high",
+    "security-audit": "pnpm audit --audit-level=high",
     "server:watch": "nodemon --inspect=0.0.0.0 --ext js,json --legacy-watch ./src",
     "server:debug": "nodemon --inspect-brk=0.0.0.0 --ext js,json --legacy-watch ./src",
-    "prestart": "npm run build:frontend",
+    "prestart": "pnpm run build:frontend",
     "start": "NODE_ENV=production node --use-strict .",
     "setup:husky": "node -e \"try { (await import('husky')).default() } catch (e) { if (e.code !== 'ERR_MODULE_NOT_FOUND') throw e }\" --input-type module"
   },
@@ -94,7 +95,9 @@
     "webpack-assets-manifest": "6.5.0",
     "webpack-cli": "6.0.1"
   },
-  "overrides": {
-    "tmp": "0.2.5"
+  "pnpm": {
+    "overrides": {
+      "tmp": "0.2.5"
+    }
   }
 }
